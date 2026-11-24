@@ -8,10 +8,7 @@ async function load() {
   $("status").textContent = "Loading countries...";
   $("retry").hidden = true;
   try {
-    const res = await fetch(API);
-    if (!res.ok) throw new Error("API status " + res.status);
-    countries = await res.json();
-    if (!Array.isArray(countries)) throw new Error("Bad response");
+  countries = await cachedFetch(API);
     render();
   } catch (e) {
     $("status").textContent = `Could not load data (${e.message}). Check your connection and retry.`;
